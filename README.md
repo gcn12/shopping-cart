@@ -14,6 +14,6 @@
 - The objects within `searchResults` have an `isAdded` key, which when set to `true`, displays a checkmark next to the item name. Because the dropdown covers most of the list, the checkmark is a visual cue to tell the user that their item has been successfully added. 
 
 ## Accessibility
-- In order to make the app more accessible, the check and delete buttons contain text labels. For aesthetics, the text is hidden with a CSS class called `visually-hidden`. This ensures that the text exists but cannot be seen
-- Headless UI’s dropdown component provides full control over functionality and styling while ensuring an accessible experience
-
+- In order to make the app more accessible, the check and delete buttons contain text labels. For aesthetics, the text is hidden with a CSS class called `visually-hidden`. This ensures that the text exists but cannot be seen.
+- Headless UI’s dropdown component provides full control over functionality and styling while ensuring an accessible experience.
+- Every `input` should have a corresponding `label`, for both usability and accessibility. In lieu of a `label`, `aria-label` is used to describe the purpose of the input.
