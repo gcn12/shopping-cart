@@ -27,7 +27,10 @@ export default function Home() {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useDetectClickOutside({ ref: dropdownRef, callback: setIsShowDropdown });
+  useDetectClickOutside({
+    ref: dropdownRef,
+    callback: () => setIsShowDropdown(false),
+  });
 
   useEffect(() => {
     const getShoppingItems = async () => {
