@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GreatFrontEnd
 
-## Getting Started
+## State
+- `shoppingList` is an array of objects representing a user’s shopping list. Each object stores the item name and a unique ID. The ID is required to differentiate between items with the same name.
+- `checkedItemIDs`  keeps track of the IDs of items the user has checked off their list.
+- `isShowDropdown` determines if the dropdown should be displayed. The dropdown opens when the user focuses on the input and there are items in the `searchResults` array. The dropdown closes when the user clicks on an element outside of the dropdown. `isShowDropdown` is necessary to prevent the dropdown from automatically closing when a user adds an item to their list.
+- `searchResults` stores a list of items returned from the API search. An `isAdded` boolean is stored alongside the item name, which is used to notify a user when they add an item to their list.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Deep dive
+- To prevent unnecessary requests to the API, the user’s text input needs to be debounced. This is accomplished by taking advantage of how React renders. When a user types a letter, the `searchQuery` string in state is updated. Because `searchQuery` is in the useEffect dependency array, the timeout within the useEffect runs. If the user doesn’t type again for half a second, the API request is made. However, if the user does type, the effect runs again and the previous setTimeout is cleared in the useEffect cleanup, so the previous request is never made. 
+- `structuredClone` When updating state, React requires a brand new version of the data. Because data structures such as arrays, objects, and sets are passed by reference, a new data structure needs to be created before state is updated. Using `structuredClone` is a way of creating a deep copy of the original data before it updates state.
+- `useDetectClickOutside` is a custom hook used to detect if a user clicks outside a particular element; in this case the dropdown. It takes two props: a `ref` and a `callback.` The `ref` is what hooks into the React component or HTML element that is being observed. The `callback` can be any function that will run when an outside element is clicked. 
+- The objects within `searchResults` have an `isAdded` key, which when set to `true`, displays a checkmark next to the item name. Because the dropdown covers most of the list, the check mark is a visual cue to tell the user that their item has been successfully added. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Accessibility
+- In order to make the app more accessible, the check and delete buttons contain text labels. For aesthetics, the text is hidden with a CSS class called `visually-hidden`. This ensures that the text exists but cannot be seen
+- Headless UI’s dropdown component provides full control over functionality and styling while ensuring an accessible experience
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
