@@ -2,7 +2,8 @@
 
 ## State
 - `shoppingList` is an array of objects, with each object storing the item name and a unique ID. The ID is required to differentiate between items with the same name.
-- `checkedItemIDs`  keeps track of the IDs of items the user has checked off their list.
+- `searchQuery` is a string representing the user's search. It is later used in the API request to fetch shopping items.
+- `checkedItemIDs` keeps track of the IDs of items the user has checked off their list.
 - `isShowDropdown` determines if the dropdown should be displayed. The dropdown opens when the user focuses on the input and there are items in the `searchResults` array. The dropdown closes when the user clicks on an element outside of the dropdown. `isShowDropdown` is necessary to prevent the dropdown from automatically closing when a user adds an item to their list.
 - `searchResults` stores a list of items returned from the search request. An `isAdded` boolean is stored alongside the item name, which is used to confirm that an item has been added to their list.
 
